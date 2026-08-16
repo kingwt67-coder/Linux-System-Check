@@ -10,14 +10,22 @@
 
 ## 🛠️ 快速部署与使用指南
 
- 1. 部署脚本与初始化权限
+以下是将本脚本部署为企业级自动化巡检任务的完整步骤。
+
+### 1. 部署脚本与初始化权限
 
 将脚本移动到系统目录，并赋予执行权限。请在服务器执行以下命令：
+
+```bash
 mv system_check.sh /root/
 chmod +x /root/system_check.sh
+```
 
-2. 配置日志轮转规则
+### 2. 配置日志轮转规则
+
 为了防止长期运行导致日志文件撑爆磁盘，请执行以下命令创建自动清理策略：
+
+```bash
 cat << 'EOF' > /etc/logrotate.d/system_check
 /var/log/system_check.log {
     daily
@@ -28,7 +36,11 @@ cat << 'EOF' > /etc/logrotate.d/system_check
     create 0644 root root
 }
 EOF
+```
 
-3. 配置定时任务
+### 3. 配置定时任务
+
 执行 crontab -e 编辑定时任务，然后将以下行添加到文件末尾：
+
+```bash
 0 2 * * * /bin/bash /root/system_check.sh >> /var/log/system_check.log 2>&1
