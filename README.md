@@ -33,5 +33,3 @@ EOF
 执行 crontab -e 编辑定时任务，然后将以下行添加到文件末尾：
 
 0 2 * * * /bin/bash /root/system_check.sh >> /var/log/system_check.log 2>&1
-
-本项目非常适合作为 Linux 系统运维自动化的实战参考。
